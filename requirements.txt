@@ -1,1 +1,8 @@
 qtpy==2.4.1
+
+Google-Images-Search
+
+tensorflow
+
+matplotlib
+
