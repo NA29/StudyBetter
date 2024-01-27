@@ -1,5 +1,9 @@
 qtpy==2.4.1
 
+PyQt5
+
+python-docx
+
 Google-Images-Search
 
 tensorflow
