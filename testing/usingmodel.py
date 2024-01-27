@@ -13,7 +13,7 @@ model = load_model(model_path)
 print("Done")
            
 # loads the input image
-image_path = 'image-tests/upper2.png'
+image_path = 'image-tests/tamere.png'
 image = cv2.imread(image_path)
 #from google.colab import files
 #image = files.upload()

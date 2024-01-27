@@ -8,3 +8,9 @@ matplotlib
 
 python-dotenv
 
+opencv-python
+
+numpy
+
+imutils
+
