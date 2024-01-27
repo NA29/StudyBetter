@@ -6,15 +6,15 @@ from path import Path
 
 from htr_pipeline import read_page, DetectorConfig, LineClusteringConfig, ReaderConfig, PrefixTree
 
-with open('data\config.json') as f:
+with open('Model3\Model3\data\config.json') as f:
     sample_config = json.load(f)
 
-with open('data\words_alpha.txt') as f:
+with open('Model3\Model3\data\words_alpha.txt') as f:
     word_list = [w.strip().upper() for w in f.readlines()]
 prefix_tree = PrefixTree(word_list)
 
 for decoder in ['best_path', 'word_beam_search']:
-    for img_filename in Path('data').files('*.png'):
+    for img_filename in Path('Model3\Model3\data').files('*.png'):
         print(f'Reading file {img_filename} with decoder {decoder}')
 
         # read text
