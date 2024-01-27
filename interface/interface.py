@@ -120,6 +120,17 @@ class PageLoading(QWidget):
         sloganLayout.addWidget(sloganLabel)
         layout.addLayout(sloganLayout)
 
+        dotLayout = QHBoxLayout()
+        dotLabel = QLabel('. . .',self)
+        dotLabel.setStyleSheet("font-size: 100pt")
+        dotLabel.setAlignment(Qt.AlignCenter)
+        dotLayout.addWidget(dotLabel)
+        layout.addLayout(dotLayout)
+
+class PageDone(QWidget):
+    def __init__(self,main_window=None):
+        super.__init__(main_window)
+
 def main():
     app = QApplication(sys.argv)
     ex = MainWindow()
