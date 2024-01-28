@@ -1,8 +1,3 @@
-Reading file Model3\data\Capture.PNG with decoder best_path
-HE WENT TO SCHOOL AND THEN HE
-FOOK A FAT NOP BECAUGE HE DID
-NOT HAVE ANY HOMERWORK
-
 Reading file Model3\data\Capture.PNG with decoder word_beam_search
 HE WENT TO SCHOOL AND THEN HE
 TOOK A FAT NOY BECAUSE HE DID
