@@ -18,3 +18,9 @@ numpy
 
 imutils
 
+webcolors
+
+os
+
+colorthief
+
