@@ -9,8 +9,7 @@ current_script_path = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_script_path)
 sys.path.append(parent_dir)
 
-
-from Model3.googleimage import * 
+import googleimage
 from google_images_search import GoogleImagesSearch
 
 PATH_TXT = ""
@@ -45,7 +44,7 @@ def main_word():
     left_cell = table.rows[0].cells[0]
     right_cell = table.rows[0].cells[1]
     # left_cell.text = read_text_file(PATH_TXT)
-    #getImage()
+    googleimage.getImage()
     #right_cell.add_paragraph().add_run().add_picture("out.png",width=Inches(2))
 
     left_cell.text = getDefinition("battery")
