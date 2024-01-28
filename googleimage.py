@@ -5,7 +5,7 @@ def getImage(query):
     
     download_path = './images'
 
-    gis = GoogleImagesSearch('AIzaSyAtjU-9t0I2VZNt9kdWSZyMBv23wV003ws', '737507732fb454755')
+    gis = GoogleImagesSearch('AIzaSyBUPMaep14tCPHEc29Uw9BdkBdpmbclp6Y', '45795065575ed4290')
     # define search params
     # option for commonly used search param are shown below for easy reference.
     # For param marked with '##':
@@ -37,12 +37,13 @@ def getImage(query):
         image.download('./images')  # download image
         image.resize(500, 500)  # resize downloaded image
         image_name = image.url.split('/')[-1]  # Extracting image name from URL
-        old_image_path = os.path.join(download_path, image_name)
-        new_image_path = os.path.join(download_path, f"{query}.jpg")  # New name for the image
-        os.rename(old_image_path, new_image_path)  # Rename the image
+        # old_image_path = os.path.join(download_path, image_name)
+        # new_image_path = os.path.join(download_path, f"{query}.jpg")  # New name for the image
+        # os.rename(old_image_path, new_image_path)  # Rename the image
 
 
         image.path  # downloaded local file path
+        return image
 
 
 if __name__ == '__main__':

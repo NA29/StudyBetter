@@ -11,13 +11,14 @@ parent_dir = os.path.dirname(current_script_path)
 sys.path.append(parent_dir)
 
 import googleimage
+from colordetect import colors
 from google_images_search import GoogleImagesSearch
 
 PATH_TXT = "output.txt"
 notesTaken = ""
 
 
-client = OpenAI(api_key="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")
+
 
 
 def read_text_file(file_path):
@@ -39,32 +40,57 @@ def getDefinition(word):
         return first_definition
     else: return "Word not found or an error occurred."
 
-def getQuestion(word):
-    completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": f"Create a question to test someone's abilities on the subject regarding this word: {word}"},
-        ]  
-    )
-    return completion
+# def getQuestion(word):
+#     completion = client.chat.completions.create(
+#         model="gpt-3.5-turbo",
+#         messages=[
+#             {"role": "system", "content": f"Create a question to test someone's abilities on the subject regarding this word: {word}"},
+#         ]  
+#     )
+#     return completion
 
 
 def main_word():
-    # document = docx.Document()
-    # table = document.add_table(rows=1, cols=2)
-    # left_cell = table.rows[0].cells[0]
-    # right_cell = table.rows[0].cells[1]
-    # # left_cell.text = read_text_file(PATH_TXT)
-    # query = "battery"
-    # googleimage.getImage(query)
-    # right_cell.add_paragraph().add_run().add_picture(f"images/{query}.jpg",width=Inches(2))
+    document = docx.Document()
+    table = document.add_table(rows=1, cols=2)
+    left_cell = table.rows[0].cells[0]
+    right_cell = table.rows[0].cells[1]
+    with open(PATH_TXT, 'r') as file:
+        content = file.read()
 
-    # left_cell.text = getDefinition("battery")
+    # Remove \n completely
+    content_without_newlines = content.replace('/n', '')
+    left_cell.text = content_without_newlines
+    
+    dict_words = colors.main()
+    print(str(dict_words) + " yes")
+    for k,v in dict_words.items():
+        if v == "red":
+            definition = getDefinition(k.lower())
+            document.add_paragraph(f"{k.lower()}: {definition}")
+            print(definition)
+        elif v == "green":
+            #googleimage.getImage(k.lower())
+            pass
+            
+             
+            
+    directory = os.fsencode("./images")          
+    for file in os.listdir(directory):         
+        filename = os.fsdecode(file)         
+        if filename.endswith(".jpg"):             
+            path_current_image = os.path.join("./images", filename)
+            right_cell.add_paragraph().add_run().add_picture(path_current_image,width=Inches(2))
+            continue        
+        else:             
+            continue
+    
+            
 
-    # document.save('notes.docx')
-    # if sys.platform.startswith('darwin'):  
-    #     subprocess.run(['open', 'notes.docx'])
-    print(getQuestion('mitochondria'))
+    document.save('notes.docx')
+    if sys.platform.startswith('darwin'):  
+        subprocess.run(['open', 'notes.docx'])
+    #print(getQuestion('mitochondria'))
     
 
 
