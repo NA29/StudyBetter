@@ -6,17 +6,19 @@ def autocorrect(userinput):
     userinput = userinput.lower()
     # find those words that may be misspelled
     toCheckString = userinput
-    toCheckList = userinput.split()
+    toCheckList = 'autocorrect'.split()
     misspelled = spell.unknown(toCheckList)
 
     unknownindex = []
     correctedlist = []
     for word in misspelled:
-        # Get the one `most likely` answer
         unknownindex.append(toCheckList.index(word))
-        correctedlist.append(spell.correction(word))
-        if None in correctedlist:
-            correctedlist[correctedlist.index(None)] = word
+        try:
+            correctedlist.append(spell.correction(word))
+        except:
+            correctedlist.append(word)
+        print(correctedlist)
+        print('this is a' + word)
 
     output = []
 
@@ -34,14 +36,6 @@ def autocorrect(userinput):
         else: 
             outputString = outputString + ' ' + word
 
-
-    # print(unknownindex)
-    # print(correctedlist)
-    # print(output)
-    # print('-----------------------------------------')
-    # print('Before autocorrect: ' + toCheckString)
-    # print('After autocorrect: ' + outputString)
-
     return outputString
 
-print(autocorrect("he went to school and then he took a fat noy because he did not have any homework"))
+print(autocorrect("autocorrect"))
