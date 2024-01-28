@@ -37,4 +37,6 @@ def getImage():
 
         image.path  # downloaded local file path
 
-getImage()
+
+if __name__ == '__main__':
+    getImage()
