@@ -1,47 +1,46 @@
 import json
 import cv2
+import matplotlib.pyplot as plt
 from path import Path
 from htr_pipeline import read_page, DetectorConfig, LineClusteringConfig, ReaderConfig, PrefixTree
-import matplotlib.pyplot as plt
+
+# Load configurations and word list
+with open('Model3\\data\\config.json') as f:
+    sample_config = json.load(f)
+
+with open('Model3\\data\\words_alpha.txt') as f:
+    word_list = [w.strip().upper() for w in f.readlines()]
+prefix_tree = PrefixTree(word_list)
 
 # Open a text file for writing
 with open('output.txt', 'w') as file:
-    with open('Model3\data\config.json') as f:
-        sample_config = json.load(f)
+    for img_filename in Path('Model3\\data').files('*.png'):
+        result = ""  # Initialize result string for each image
 
-    with open('Model3\data\words_alpha.txt') as f:
-        word_list = [w.strip().upper() for w in f.readlines()]
-    prefix_tree = PrefixTree(word_list)
-
-    for decoder in ['best_path', 'word_beam_search']:
-        for img_filename in Path('Model3\data').files('*.png'):
+        for decoder in ['best_path', 'word_beam_search']:
             file.write(f'Reading file {img_filename} with decoder {decoder}\n')
 
             # read text
             img = cv2.imread(img_filename, cv2.IMREAD_GRAYSCALE)
-            scale = sample_config[img_filename.basename()]['scale'] if img_filename.basename() in sample_config else 1
-            margin = sample_config[img_filename.basename()]['margin'] if img_filename.basename() in sample_config else 0
+            scale = sample_config.get(img_filename.basename(), {}).get('scale', 1)
+            margin = sample_config.get(img_filename.basename(), {}).get('margin', 0)
             read_lines = read_page(img,
                                    detector_config=DetectorConfig(scale=scale, margin=margin),
                                    line_clustering_config=LineClusteringConfig(min_words_per_line=2),
                                    reader_config=ReaderConfig(decoder=decoder, prefix_tree=prefix_tree))
 
-<<<<<<< HEAD
-        # output text
-        for read_line in read_lines:
-            result = ' '.join(read_word.text for read_word in read_line)
-        print (result)
-        print()
-=======
-            # output text to file
+            # output text to file and accumulate in `result`
             for read_line in read_lines:
-                file.write(' '.join(read_word.text for read_word in read_line) + '\n')
+                line_text = ' '.join(read_word.text for read_word in read_line) + '\n'
+                file.write(line_text)
+                result += line_text
+
             file.write('\n')
->>>>>>> 9b8a828d66188bd1e10bc32fbdbc867615c9da42
 
+        # Print results for the current image after processing with all decoders
+        print(result)
 
-
-        # plot image with detections and texts as overlay
+        # Plot image with detections and texts as overlay
         plt.figure(f'Image: {img_filename} Decoder: {decoder}')
         plt.imshow(img, cmap='gray')
         for i, read_line in enumerate(read_lines):
