@@ -10,30 +10,38 @@ import shutil
 
 
 # Set up the output directory for the individual word images
-output_directory = 'Model3\\words'
+output_directory = 'Model3//words'
 
 if os.path.exists(output_directory):
     shutil.rmtree(output_directory)
 os.makedirs(output_directory, exist_ok=True)
 
 # Load configurations and word list
-with open('Model3\\data\\config.json') as f:
+with open('Model3//data//config.json') as f:
     sample_config = json.load(f)
 
-with open('Model3\\data\\words_alpha.txt') as f:
+with open('Model3//data//words_alpha.txt') as f:
     word_list = [w.strip().upper() for w in f.readlines()]
 prefix_tree = PrefixTree(word_list)
 
 # Open a text file for writing
 with open('output.txt', 'w') as file:
+<<<<<<< Updated upstream
     img_files = [f for f in Path('Model3\\data').files() if f.lower().endswith('.png')]
     for img_filename in img_files:
         result = ""  # Initialize result string for each image
 
         # dominant_color = getDominantColor(img_filename)
         # result += f"Dominant Color: {dominant_color}\n"
+=======
+    for img_filename in Path('Model3/data').files('*.PNG'):
+        result = ""  # Initialize result string for each image
 
-        file.write(f'Reading file {img_filename} with decoder word_beam_search\n')
+        # dominant_color = getDominantColor(img_filename)
+        # result += f"Dominant Color: {dominant_color}/n"
+>>>>>>> Stashed changes
+
+        file.write(f'Reading file {img_filename} with decoder word_beam_search/n')
 
         # read text
         img = cv2.imread(img_filename)
@@ -46,11 +54,11 @@ with open('output.txt', 'w') as file:
 
         # output text to file and accumulate in `result`
         for read_line in read_lines:
-            line_text = ' '.join(read_word.text for read_word in read_line) + '\n'
+            line_text = ' '.join(read_word.text for read_word in read_line) + '/n'
             file.write(line_text)
             result += line_text
 
-        file.write('\n')
+        file.write('/n')
 
         # Save individual word images
         for i, read_line in enumerate(read_lines):
