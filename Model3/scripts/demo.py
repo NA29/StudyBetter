@@ -6,6 +6,11 @@ from htr_pipeline import read_page, DetectorConfig, LineClusteringConfig, Reader
 import os
 # from colordetect.colors import getDominantColor
 import shutil
+import sys 
+
+sys.path.append('autocorrect')
+
+from autocorrect import autocorrect
 
 
 
@@ -43,13 +48,29 @@ with open('output.txt', 'w') as file:
                                line_clustering_config=LineClusteringConfig(min_words_per_line=2),
                                reader_config=ReaderConfig(decoder='word_beam_search', prefix_tree=prefix_tree))
 
+        #autocorrect 
+        autocorrected_lines = []
+
         # output text to file and accumulate in `result`
         for read_line in read_lines:
             line_text = ' '.join(read_word.text for read_word in read_line) + '\n'
-            file.write(line_text)
-            result += line_text
+        
+            # Autocorrect the line_text using the autocorrect function
+            autocorrected_line = autocorrect(line_text)
+            
+            # Append the autocorrected line to the list
+            autocorrected_lines.append(autocorrected_line)
 
-        file.write('\n')
+        with open('output.txt', 'w') as file:
+            # Write the autocorrected lines to the file
+            for autocorrected_line in autocorrected_lines:
+                file.write(autocorrected_line)
+
+            file.write('\n')
+
+     
+        
+
 
         # Save individual word images
         for i, read_line in enumerate(read_lines):

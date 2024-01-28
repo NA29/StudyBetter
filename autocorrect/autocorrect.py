@@ -44,4 +44,4 @@ def autocorrect(userinput):
 
     return outputString
 
-print(autocorrect("he went to school and then he took a fat noy because he did not have any homework"))
+#print(autocorrect('ES AND MONG ERYON I I JUST WANTED TO REMIND YOU GUYS THAT WE ARE CHAINE OUR BOGLE FLUTTER WORKSHOP IN THE DOWNSTAIRS GOOD LEK AND HAVE FUN SEE YOU GUYS AFER'))
