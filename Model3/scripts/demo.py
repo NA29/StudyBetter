@@ -17,7 +17,7 @@ with open('output.txt', 'w') as file:
     for img_filename in Path('Model3\\data').files('*.png'):
         result = ""  # Initialize result string for each image
 
-        for decoder in ['best_path', 'word_beam_search']:
+        for decoder in ['word_beam_search']:
             file.write(f'Reading file {img_filename} with decoder {decoder}\n')
 
             # read text
