@@ -30,6 +30,12 @@ class MainWindow(QWidget):
 
     def showPageTwo(self):
         self.stackedWidget.setCurrentWidget(self.pageTwo)
+    
+    def showPopup(self):
+        popup = PopupDialog(self)
+        mainWindowCenter = self.frameGeometry().center()
+        popup.move(mainWindowCenter - popup.rect().center())
+        popup.exec_()
 
 class LandingPage(QWidget):
     def __init__(self, main_window=None):
@@ -55,7 +61,7 @@ class LandingPage(QWidget):
         layout.addLayout(sloganLayout)
 
         welcomeLayout = QHBoxLayout()
-        welcomeLabel = QLabel('Welcome to Study Better, please select an image file to begin', self)
+        welcomeLabel = QLabel('Welcome to Study Better, please select a png file to begin', self)
         welcomeLabel.setStyleSheet("font-size: 40pt")
         welcomeLabel.setAlignment(Qt.AlignCenter)
         welcomeLayout.addWidget(welcomeLabel)
@@ -104,8 +110,25 @@ class LandingPage(QWidget):
         print(file_extension)
         if file_extension.lower() in ['.png']:
             self.main_window.showPageTwo()
-        
-        
+        else:
+            self.main_window.showPopup()
+
+class PopupDialog(QDialog):
+    def __init__(self, main_window=None):
+        super().__init__(main_window)
+        self.setWindowTitle('Error')
+        self.setGeometry(200, 200, 200, 200)
+        self.setStyleSheet("background-color: white; color:black;")
+        layout = QVBoxLayout()
+        message_label = QLabel('You have selected a non-compatible file type. Please select a .png', self)
+        layout.addWidget(message_label)
+        closeButton = QPushButton('Close', self)
+        closeButton.setStyleSheet("border: 2px solid black; border-radius: 10px; padding: 6px;")
+        closeButton.clicked.connect(self.close)  
+        layout.addWidget(closeButton)
+        self.setLayout(layout)
+    
+    
 class PageLoading(QWidget):
     def __init__(self, main_window=None):
         super().__init__(main_window)
@@ -119,6 +142,17 @@ class PageLoading(QWidget):
         sloganLabel.setAlignment(Qt.AlignCenter)
         sloganLayout.addWidget(sloganLabel)
         layout.addLayout(sloganLayout)
+
+        dotLayout = QHBoxLayout()
+        dotLabel = QLabel('. . .',self)
+        dotLabel.setStyleSheet("font-size: 100pt")
+        dotLabel.setAlignment(Qt.AlignCenter)
+        dotLayout.addWidget(dotLabel)
+        layout.addLayout(dotLayout)
+
+class PageDone(QWidget):
+    def __init__(self,main_window=None):
+        super.__init__(main_window)
 
 def main():
     app = QApplication(sys.argv)
