@@ -10,7 +10,7 @@ parent_dir = os.path.dirname(current_script_path)
 sys.path.append(parent_dir)
 
 
-from googleimage import * 
+from Model3.googleimage import * 
 from google_images_search import GoogleImagesSearch
 
 PATH_TXT = ""
