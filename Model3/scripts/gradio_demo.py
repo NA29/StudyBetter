@@ -5,7 +5,7 @@ import gradio as gr
 
 from htr_pipeline import read_page, DetectorConfig, LineClusteringConfig, ReaderConfig, PrefixTree
 
-with open('data/words_alpha.txt') as f:
+with open('Model3\data\words_alpha.txt') as f:
     word_list = [w.strip().upper() for w in f.readlines()]
 prefix_tree = PrefixTree(word_list)
 
@@ -42,7 +42,7 @@ def process_page(img, scale, margin, use_dictionary, min_words_per_line, text_sc
     return res, img
 
 
-with open('data/config.json') as f:
+with open('Model3\data\config.json') as f:
     config = json.load(f)
 
 examples = []
