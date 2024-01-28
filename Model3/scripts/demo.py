@@ -26,20 +26,11 @@ prefix_tree = PrefixTree(word_list)
 
 # Open a text file for writing
 with open('output.txt', 'w') as file:
-<<<<<<< Updated upstream
-    img_files = [f for f in Path('Model3\\data').files() if f.lower().endswith('.png')]
-    for img_filename in img_files:
-        result = ""  # Initialize result string for each image
-
-        # dominant_color = getDominantColor(img_filename)
-        # result += f"Dominant Color: {dominant_color}\n"
-=======
     for img_filename in Path('Model3/data').files('*.PNG'):
         result = ""  # Initialize result string for each image
 
         # dominant_color = getDominantColor(img_filename)
         # result += f"Dominant Color: {dominant_color}/n"
->>>>>>> Stashed changes
 
         file.write(f'Reading file {img_filename} with decoder word_beam_search/n')
 
@@ -71,9 +62,12 @@ with open('output.txt', 'w') as file:
         # Print results for the current image after processing with the decoder
         print(result)
 
-        # Plot image with detections and texts as overlay
-        plt.figure(f'Image: {img_filename} Decoder: word_beam_search')
-        plt.imshow(img, cmap='gray')
+        #plot
+       
+        plt.figure(f'Image: {img_filename}', dpi=150)
+
+        img_height, img_width = img.shape[:2]
+        
         for i, read_line in enumerate(read_lines):
             for read_word in read_line:
                 aabb = read_word.aabb
@@ -81,5 +75,10 @@ with open('output.txt', 'w') as file:
                 ys = [aabb.ymin, aabb.ymax, aabb.ymax, aabb.ymin, aabb.ymin]
                 plt.plot(xs, ys, c='r' if i % 2 else 'b')
                 plt.text(aabb.xmin, aabb.ymin - 2, read_word.text)
-
+                plt.imshow(img, cmap='gray')
+                plt.axis('off')  # Turn off axis
+                plt.axis('image')  # Ensure aspect ratio is the same as the image
+                plt.xlim([0, img_width])
+                plt.ylim([img_height, 0])
+                
 plt.show()

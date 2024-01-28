@@ -1,1 +1,1 @@
-Reading file Model3/data/Capture.PNG with decoder word_beam_search/nHE WENT TO SCHOOL AND THEN HE/nTOOK A FAT NOY BECAUSE HE DID/nNOT HAVE ANY HOMEWORK/n/n
+Reading file Model3/data\Capture.PNG with decoder word_beam_search/nHE WENT TO SCHOOL AND THEN HE/nTOOK A FAT NOY BECAUSE HE DID/nNOT HAVE ANY HOMEWORK/n/n

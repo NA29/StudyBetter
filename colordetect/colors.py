@@ -64,14 +64,15 @@ def getDominantColor(image_path):
     else:
         color = "no color detected"
 
-    print(color)
-    print(dominant_color)
+    return color, dominant_color
 
 # getDominantColor('colordetect/greentext.png')
 
 
-filenames = next(walk('Model3/words'), (None, None, []))[2]  # [] if no file
-print(filenames)
-
+color_list = []
+filenames = next(walk('Model3/words'), (None, None, []))[2]
 for filename in filenames:
-    getDominantColor('Model3/words/' + filename)
+    color_name, _ = getDominantColor('Model3/words/' + filename)
+    color_list.append(color_name)
+
+print(color_list)
