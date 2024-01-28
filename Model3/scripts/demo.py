@@ -1,5 +1,4 @@
 import json
-
 import cv2
 import matplotlib.pyplot as plt
 from path import Path
@@ -28,8 +27,11 @@ for decoder in ['best_path', 'word_beam_search']:
 
         # output text
         for read_line in read_lines:
-            print(' '.join(read_word.text for read_word in read_line))
+            result = ' '.join(read_word.text for read_word in read_line)
+        print (result)
         print()
+
+
 
         # plot image with detections and texts as overlay
         plt.figure(f'Image: {img_filename} Decoder: {decoder}')
