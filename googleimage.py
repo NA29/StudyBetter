@@ -1,7 +1,7 @@
 import os
 from google_images_search import GoogleImagesSearch
 
-def getImage():
+def getImage(query):
 
     gis = GoogleImagesSearch('AIzaSyBdpszFThXaaQGklvYuAXuBYntP9mL_n6Q', '6508e9d706bf446cd')
     # define search params
@@ -10,7 +10,7 @@ def getImage():
     #   - Multiselect is currently not feasible. Choose ONE option only
     #   - This param can also be omitted from _search_params if you do not wish to define any value
     _search_params = {
-        'q': 'car',
+        'q': query,
         'num': 1,
         'fileType': 'jpg|gif|png',
         'imgType': 'photo', ##
