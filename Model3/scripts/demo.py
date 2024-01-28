@@ -4,9 +4,16 @@ import matplotlib.pyplot as plt
 from path import Path
 from htr_pipeline import read_page, DetectorConfig, LineClusteringConfig, ReaderConfig, PrefixTree
 import os
+from colordetect.colors import getDominantColor
+import shutil
+
+
 
 # Set up the output directory for the individual word images
 output_directory = 'Model3\\words'
+
+if os.path.exists(output_directory):
+    shutil.rmtree(output_directory)
 os.makedirs(output_directory, exist_ok=True)
 
 # Load configurations and word list
@@ -21,6 +28,9 @@ prefix_tree = PrefixTree(word_list)
 with open('output.txt', 'w') as file:
     for img_filename in Path('Model3\\data').files('*.png'):
         result = ""  # Initialize result string for each image
+
+        dominant_color = getDominantColor(img_filename)
+        result += f"Dominant Color: {dominant_color}\n"
 
         file.write(f'Reading file {img_filename} with decoder word_beam_search\n')
 
