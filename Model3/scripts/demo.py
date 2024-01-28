@@ -21,7 +21,7 @@ with open('output.txt', 'w') as file:
             file.write(f'Reading file {img_filename} with decoder {decoder}\n')
 
             # read text
-            img = cv2.imread(img_filename, cv2.IMREAD_GRAYSCALE)
+            img = cv2.imread(img_filename)
             scale = sample_config.get(img_filename.basename(), {}).get('scale', 1)
             margin = sample_config.get(img_filename.basename(), {}).get('margin', 0)
             read_lines = read_page(img,
