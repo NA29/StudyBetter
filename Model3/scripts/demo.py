@@ -6,17 +6,10 @@ from path import Path
 
 from htr_pipeline import read_page, DetectorConfig, LineClusteringConfig, ReaderConfig, PrefixTree
 
-<<<<<<< Updated upstream:Model3/scripts/demo.py
 with open('Model3\data\config.json') as f:
     sample_config = json.load(f)
 
 with open('Model3\data\words_alpha.txt') as f:
-=======
-with open('../data/config.json/') as f:
-    sample_config = json.load(f)
-
-with open('Model3/Model3/data/words_alpha.txt') as f:
->>>>>>> Stashed changes:Model3/Model3/scripts/demo.py
     word_list = [w.strip().upper() for w in f.readlines()]
 prefix_tree = PrefixTree(word_list)
 
