@@ -32,7 +32,7 @@ with open('output.txt', 'w') as file:
         # dominant_color = getDominantColor(img_filename)
         # result += f"Dominant Color: {dominant_color}/n"
 
-        file.write(f'Reading file {img_filename} with decoder word_beam_search/n')
+        
 
         # read text
         img = cv2.imread(img_filename)
@@ -45,11 +45,11 @@ with open('output.txt', 'w') as file:
 
         # output text to file and accumulate in `result`
         for read_line in read_lines:
-            line_text = ' '.join(read_word.text for read_word in read_line) + '/n'
+            line_text = ' '.join(read_word.text for read_word in read_line) + '\n'
             file.write(line_text)
             result += line_text
 
-        file.write('/n')
+        file.write('\n')
 
         # Save individual word images
         for i, read_line in enumerate(read_lines):
