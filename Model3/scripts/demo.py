@@ -24,7 +24,7 @@ with open('Model3//data//words_alpha.txt') as f:
     word_list = [w.strip().upper() for w in f.readlines()]
 prefix_tree = PrefixTree(word_list)
 
-# Open a text file for writing
+
 with open('output.txt', 'w') as file:
     for img_filename in Path('Model3/data').files('*.PNG'):
         result = ""  # Initialize result string for each image
