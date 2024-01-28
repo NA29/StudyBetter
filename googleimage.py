@@ -3,13 +3,7 @@ from google_images_search import GoogleImagesSearch
 
 def getImage():
 
-    # you can provide API key and CX using arguments,
-    # or you can set environment variables: GCS_DEVELOPER_KEY, GCS_CX
-    os.environ['GCS_DEVELOPER_KEY'] = 'Your_Developer_Key_Here'
-    os.environ['GCS_CX'] = 'Your_Custom_Search_Engine_ID_Here'
-
-    gis = GoogleImagesSearch()
-
+    gis = GoogleImagesSearch('AIzaSyBdpszFThXaaQGklvYuAXuBYntP9mL_n6Q', '6508e9d706bf446cd')
     # define search params
     # option for commonly used search param are shown below for easy reference.
     # For param marked with '##':
@@ -17,7 +11,7 @@ def getImage():
     #   - This param can also be omitted from _search_params if you do not wish to define any value
     _search_params = {
         'q': 'car',
-        'num': 10,
+        'num': 1,
         'fileType': 'jpg|gif|png',
         'imgType': 'photo', ##
         'imgColorType': 'color' ##
@@ -42,3 +36,7 @@ def getImage():
         image.resize(500, 500)  # resize downloaded image
 
         image.path  # downloaded local file path
+
+
+if __name__ == '__main__':
+    getImage()
