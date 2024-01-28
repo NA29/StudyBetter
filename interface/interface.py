@@ -167,6 +167,8 @@ class PageDone(QWidget):
         self.main_window = main_window
 
         layout = QVBoxLayout()
+        screen_geometry = QDesktopWidget().screenGeometry()
+        self.setFixedSize(screen_geometry.width(), screen_geometry.height()-50)
         self.setLayout(layout)
 
         textLayout = QHBoxLayout()
@@ -184,7 +186,27 @@ class PageDone(QWidget):
         precisionLabel.setAlignment(Qt.AlignCenter)
         precisionLayout.addWidget(precisionLabel)
         layout.addLayout(precisionLayout)
+
+        closeButton = QPushButton('Close', self)
+        closeButton.setStyleSheet("border: 2px solid black; border-radius: 10px; padding: 6px;")
+        closeButton.setStyleSheet("""
+            QPushButton {
+                color : black;
+                border: 2px solid black;
+                border-radius: 10px;
+                padding: 6px;
+            }
+            QPushButton:hover {
+                background-color : beige;
+            }
+        """)
+        closeButton.clicked.connect(self.closeProgram)  
+        layout.addWidget(closeButton)
+        self.setLayout(layout)
         
+    def closeProgram(self):
+        QApplication.instance().quit()
+
 def main():
     app = QApplication(sys.argv)
     ex = MainWindow()
