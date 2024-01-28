@@ -44,8 +44,9 @@ def main_word():
     left_cell = table.rows[0].cells[0]
     right_cell = table.rows[0].cells[1]
     # left_cell.text = read_text_file(PATH_TXT)
-    googleimage.getImage()
-    #right_cell.add_paragraph().add_run().add_picture("out.png",width=Inches(2))
+    query = "battery"
+    googleimage.getImage(query)
+    right_cell.add_paragraph().add_run().add_picture(f"images/{query}.jpg",width=Inches(2))
 
     left_cell.text = getDefinition("battery")
 

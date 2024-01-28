@@ -2,8 +2,10 @@ import os
 from google_images_search import GoogleImagesSearch
 
 def getImage(query):
+    
+    download_path = './images'
 
-    gis = GoogleImagesSearch('AIzaSyBdpszFThXaaQGklvYuAXuBYntP9mL_n6Q', '6508e9d706bf446cd')
+    gis = GoogleImagesSearch('AIzaSyAtjU-9t0I2VZNt9kdWSZyMBv23wV003ws', '737507732fb454755')
     # define search params
     # option for commonly used search param are shown below for easy reference.
     # For param marked with '##':
@@ -34,9 +36,14 @@ def getImage(query):
         
         image.download('./images')  # download image
         image.resize(500, 500)  # resize downloaded image
+        image_name = image.url.split('/')[-1]  # Extracting image name from URL
+        old_image_path = os.path.join(download_path, image_name)
+        new_image_path = os.path.join(download_path, f"{query}.jpg")  # New name for the image
+        os.rename(old_image_path, new_image_path)  # Rename the image
+
 
         image.path  # downloaded local file path
 
 
 if __name__ == '__main__':
-    getImage()
+    getImage("friend")
