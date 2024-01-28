@@ -3,7 +3,6 @@ import webcolors
 from os import walk
 from colorthief import ColorThief
 
-
 def getDominantColor(image_path):
     """
     extracts dominant color from image in RGB format using ColorThief
@@ -48,6 +47,8 @@ def getDominantColor(image_path):
                 'darkseagreen', 'mediumaquamarine', 'yellowgreen', 'lawngreen', 'chartreuse',
                 'lightgreen', 'greenyellow', 'palegreen'):
         color = "green"
+        getImage()
+
     elif color in ('indigo', 'purple', 'darkmagenta', 'darkviolet', 'darkslateblue', 'blueviolet',
                 'darkorchid', 'fuschia', 'magenta', 'slateblue', 'mediumslateblue', 'mediumorchid',
                 'mediumorchid', 'mediumpurple', 'orchid', 'violet', 'thistle', 'lavender',
@@ -69,8 +70,8 @@ def getDominantColor(image_path):
 # getDominantColor('colordetect/greentext.png')
 
 
-filenames = next(walk('colordetect/colordetectsmaples'), (None, None, []))[2]  # [] if no file
+filenames = next(walk('Model3/words'), (None, None, []))[2]  # [] if no file
 print(filenames)
 
 for filename in filenames:
-    getDominantColor('colordetect/colordetectsmaples/' + filename)
+    getDominantColor('Model3/words/' + filename)
