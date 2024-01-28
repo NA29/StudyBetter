@@ -3,6 +3,12 @@ from qtpy.QtCore import Qt
 import sys
 import os
 
+current_script_path = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_script_path)
+sys.path.append(parent_dir)
+
+from outputFile.wordFormat import *
+
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -11,14 +17,18 @@ class MainWindow(QWidget):
 
     def initUI(self):
         self.setWindowTitle('Study Better')
+        screen_geometry = QDesktopWidget().screenGeometry()
+        self.setFixedSize(screen_geometry.width(), screen_geometry.height())
         self.showFullScreen()
 
         self.stackedWidget = QStackedWidget()
         self.pageOne = LandingPage(self)
         self.pageTwo = PageLoading(self)
+        self.pageThree = PageDone(self)
 
         self.stackedWidget.addWidget(self.pageOne)
         self.stackedWidget.addWidget(self.pageTwo)
+        self.stackedWidget.addWidget(self.pageThree)
 
         mainLayout = QVBoxLayout()
         self.setStyleSheet("background-color: green;")
@@ -30,6 +40,9 @@ class MainWindow(QWidget):
 
     def showPageTwo(self):
         self.stackedWidget.setCurrentWidget(self.pageTwo)
+
+    def showPageThree(self):
+        self.stackedWidget.setCurrentWidget(self.pageThree)
     
     def showPopup(self):
         popup = PopupDialog(self)
@@ -74,6 +87,9 @@ class LandingPage(QWidget):
         self.openFileButton = QPushButton('Select a file to enhance', self)
         self.openFileButton.clicked.connect(self.openFileNameDialog)
         self.openFileButton.clicked.connect(self.checkFileType)
+        self.openFileButton.clicked.connect(main_word)
+        self.openFileButton.clicked.connect(self.goToPageThree)
+        
         self.openFileButton.setStyleSheet("""
             QPushButton {
                 color : black;
@@ -92,13 +108,8 @@ class LandingPage(QWidget):
         # Add button layout to the main layout
         layout.addLayout(buttonLayout)
 
-
-        # Label to display file path
-        # filePathLayout = QHBoxLayout()
-        # self.filePathLabel = QLabel('File path will appear here', self)
-        # filePathLayout.addWidget(self.filePathLabel, alignment=Qt.AlignCenter)
-        # layout.addLayout(filePathLayout)
-
+    def goToPageThree(self):
+        self.main_window.showPageThree()
 
     def openFileNameDialog(self):
         options = QFileDialog.Options()
@@ -152,8 +163,28 @@ class PageLoading(QWidget):
 
 class PageDone(QWidget):
     def __init__(self,main_window=None):
-        super.__init__(main_window)
+        super().__init__(main_window)
+        self.main_window = main_window
 
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        textLayout = QHBoxLayout()
+        textLabel = QLabel("All done, you can now checkout your enhanced notes from Study Better")
+        textLabel.setStyleSheet("font-size:100pt")
+        textLabel.setAlignment(Qt.AlignCenter)
+        textLabel.setWordWrap(True)
+        textLayout.addWidget(textLabel)
+        layout.addLayout(textLayout)
+
+        precisionLayout = QHBoxLayout()
+        precisionLabel = QLabel("If the word document does not open automatically, you can find it at the root of this program")
+        precisionLabel.setStyleSheet("font-size:40pt")
+        precisionLabel.setWordWrap(True)
+        precisionLabel.setAlignment(Qt.AlignCenter)
+        precisionLayout.addWidget(precisionLabel)
+        layout.addLayout(precisionLayout)
+        
 def main():
     app = QApplication(sys.argv)
     ex = MainWindow()
